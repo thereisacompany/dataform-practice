@@ -1,0 +1,11 @@
+config {
+  type: "table",
+  schema: "dataform",
+  name: "log_data"
+}
+
+SELECT
+  CURRENT_DATE() AS execution_date,
+  CURRENT_TIMESTAMP() AS execution_time,
+  "初始化建表" AS description
+WHERE FALSE

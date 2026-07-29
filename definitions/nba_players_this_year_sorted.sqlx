@@ -1,0 +1,18 @@
+config {
+  type: "table",
+  schema: "dataform",
+  dependencies: [
+    "nba_players"
+  ]
+}
+
+SELECT
+  player,
+  age,
+  birth_date,
+  height_cm,
+  weight_kg,
+  season
+FROM ${ref("nba_players")}
+WHERE season = EXTRACT(YEAR FROM CURRENT_DATE())
+ORDER BY age DESC

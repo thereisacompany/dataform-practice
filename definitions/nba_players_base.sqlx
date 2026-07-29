@@ -1,0 +1,24 @@
+config {
+  type: "table",
+  name: "nba_players_base",
+  schema: "dataform"
+}
+
+-- 15 個隨機球星資料，2008 年
+select * from unnest([
+  struct("LeBron James" as player, 23 as age, date("1984-12-30") as birth_date, 203 as height_cm, 113 as weight_kg, 2008 as season),
+  struct("Kobe Bryant", 30, date("1978-08-23"), 198, 96, 2008),
+  struct("Kevin Durant", 20, date("1988-09-29"), 208, 109, 2008),
+  struct("Dwyane Wade", 26, date("1982-01-17"), 193, 100, 2008),
+  struct("Chris Paul", 23, date("1985-05-06"), 183, 79, 2008),
+  struct("Carmelo Anthony", 24, date("1984-05-29"), 203, 109, 2008),
+  struct("Tim Duncan", 31, date("1976-04-25"), 211, 113, 2008),
+  struct("Dirk Nowitzki", 29, date("1978-06-19"), 213, 111, 2008),
+  struct("Derrick Rose", 20, date("1988-10-04"), 190, 86, 2008),
+  struct("Dwight Howard", 22, date("1985-12-08"), 211, 120, 2008),
+  struct("Paul Pierce", 30, date("1977-10-13"), 201, 108, 2008),
+  struct("Rajon Rondo", 22, date("1986-02-22"), 185, 79, 2008),
+  struct("Yao Ming", 27, date("1980-09-12"), 229, 141, 2008),
+  struct("Chris Bosh", 23, date("1984-03-24"), 206, 109, 2008),
+  struct("Steve Nash", 34, date("1974-02-07"), 191, 82, 2008)
+])

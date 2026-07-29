@@ -1,0 +1,20 @@
+config {
+  type: "table",
+  schema: "dataform",
+  name: "nba_players_summary",
+  assertions: {
+    uniqueKey: ["season"],
+    nonNull: ["avg_age"]
+  },
+  dependOnDependencyAssertions: true,
+  dependencies: ["nba_players"]
+}
+
+SELECT
+  season,
+  COUNT(DISTINCT player) AS player_count,
+  AVG(age) AS avg_age,
+  AVG(height_cm) AS avg_height,
+  AVG(weight_kg) AS avg_weight
+FROM ${ref("nba_players")}
+GROUP BY season

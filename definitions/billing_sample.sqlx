@@ -1,0 +1,31 @@
+config {
+  type: "incremental",
+  name: "billing_sample",
+  uniqueKey: ["data_ym"],
+  bigquery: {
+    partitionBy: "partition_date",
+    updatePartitionFilter: `
+      partition_date = DATE('${helpers.getPartitionFirstDay()}')
+    `
+  }
+}
+
+pre_operations {
+  DELETE FROM ${self()}
+  WHERE partition_date = DATE('${helpers.getPartitionFirstDay()}')
+}
+
+SELECT * FROM (
+  SELECT
+    '${helpers.getYearMonth()}' AS data_ym,
+    999 AS billing,
+    88 AS count,
+    TIMESTAMP('${helpers.getTodayTimestamp()}') AS elt_time,
+    DATE('${helpers.getPartitionFirstDay()}') AS partition_date
+  FROM UNNEST([1])
+)
+${when(
+  incremental(),
+  `WHERE partition_date = DATE('${helpers.getPartitionFirstDay()}')`,
+  ``
+)}

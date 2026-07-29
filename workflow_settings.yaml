@@ -1,0 +1,5 @@
+defaultProject: linen-fuze-491406-k3
+defaultDataset: dataform
+defaultLocation: asia-east1
+defaultAssertionDataset: dataform_assertions
+dataformCoreVersion: 3.0.0

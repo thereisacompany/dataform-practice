@@ -1,0 +1,9 @@
+config {
+  type: "assertion",
+  name: "check_nba_players_valid",
+  schema: "dataform_assertions"
+}
+
+SELECT *
+FROM ${ref("nba_players")}
+WHERE age <= 0 OR height_cm <= 0 OR weight_kg <= 0

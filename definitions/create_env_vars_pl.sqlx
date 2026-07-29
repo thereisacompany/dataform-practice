@@ -1,0 +1,32 @@
+config {
+  type: "operations",
+  schema: "dataform",
+  tags: ["initialization_pl"]
+}
+
+CREATE OR REPLACE PROCEDURE `${dataform.projectConfig.defaultDatabase}.dataform.calculate_env_vars_pl`()
+BEGIN
+  DECLARE current_date DATE;
+  DECLARE current_year INT64;
+  DECLARE this_week_monday DATE;
+  DECLARE this_week_sunday DATE;
+  DECLARE last_week_monday DATE;
+  DECLARE last_week_sunday DATE;
+
+  SET current_date = CURRENT_DATE();
+  SET current_year = EXTRACT(YEAR FROM current_date);
+  SET this_week_monday = DATE_TRUNC(current_date, WEEK(MONDAY));
+  SET this_week_sunday = DATE_ADD(this_week_monday, INTERVAL 6 DAY);
+  SET last_week_monday = DATE_SUB(this_week_monday, INTERVAL 7 DAY);
+  SET last_week_sunday = DATE_SUB(this_week_sunday, INTERVAL 7 DAY);
+
+  CREATE OR REPLACE TABLE `${dataform.projectConfig.defaultDatabase}.dataform.environment_variables_pl` AS
+  SELECT
+    current_year AS current_year,
+    FORMAT_DATE('%Y-%m-%d', this_week_monday) AS this_week_monday,
+    FORMAT_DATE('%Y-%m-%d', this_week_sunday) AS this_week_sunday,
+    FORMAT_DATE('%Y-%m-%d', last_week_monday) AS last_week_monday,
+    FORMAT_DATE('%Y-%m-%d', last_week_sunday) AS last_week_sunday;
+END;
+
+CALL `${dataform.projectConfig.defaultDatabase}.dataform.calculate_env_vars_pl`();

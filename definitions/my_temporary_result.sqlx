@@ -1,0 +1,15 @@
+config {
+  type: "view",
+  schema: "dataform",
+  name: "my_temporary_result"
+}
+
+SELECT
+  player,
+  birth_date,
+  ${helpers.currentYear()} AS season,
+  '${helpers.thisWeekMonday()}' AS this_week_start,
+  '${helpers.thisWeekSunday()}' AS this_week_end,
+  '${helpers.lastWeekMonday()}' AS last_week_start,
+  '${helpers.lastWeekSunday()}' AS last_week_end
+FROM ${ref("nba_players_base")}
