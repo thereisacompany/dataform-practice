@@ -1,4 +1,4 @@
 config {
   type: "table"
 }
-SELECT 1 AS id, "hello dataform" AS msg
+SELECT 1 AS id, "hello dataform Leon" AS msg
