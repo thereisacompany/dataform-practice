@@ -1,13 +1,14 @@
 config {
   type: "table",
+  name: "rpt_nba_players_summary",
   schema: "dataform",
-  name: "nba_players_summary",
+  tags: ["nba", "marts", "daily"],
   assertions: {
     uniqueKey: ["season"],
     nonNull: ["avg_age"]
   },
   dependOnDependencyAssertions: true,
-  dependencies: ["nba_players"]
+  dependencies: ["fct_nba_players"]
 }
 
 SELECT
@@ -16,5 +17,5 @@ SELECT
   AVG(age) AS avg_age,
   AVG(height_cm) AS avg_height,
   AVG(weight_kg) AS avg_weight
-FROM ${ref("nba_players")}
+FROM ${ref("fct_nba_players")}
 GROUP BY season

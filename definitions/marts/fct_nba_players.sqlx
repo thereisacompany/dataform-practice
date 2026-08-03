@@ -1,0 +1,18 @@
+config {
+  type: "incremental",
+  name: "fct_nba_players",
+  schema: "dataform",
+  uniqueKey: ["player", "season"],
+  tags: ["nba", "marts", "daily"]
+}
+
+-- Marts fact：incremental 累積各 season 快照
+-- 遷 dbt → models/marts/fct_nba_players.sql（incremental + unique_key）
+SELECT
+  player,
+  DATE_DIFF(CURRENT_DATE(), birth_date, YEAR) AS age,
+  birth_date,
+  height_cm,
+  weight_kg,
+  EXTRACT(YEAR FROM CURRENT_DATE()) AS season
+FROM ${ref("stg_nba__players")}

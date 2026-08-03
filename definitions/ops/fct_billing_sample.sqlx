@@ -1,7 +1,9 @@
 config {
   type: "incremental",
-  name: "billing_sample",
+  name: "fct_billing_sample",
+  schema: "dataform",
   uniqueKey: ["data_ym"],
+  tags: ["billing", "marts", "ops"],
   bigquery: {
     partitionBy: "partition_date",
     updatePartitionFilter: `
@@ -10,6 +12,7 @@ config {
   }
 }
 
+-- 平台味較重（pre_operations DELETE）。遷 dbt 時改 incremental_strategy
 pre_operations {
   DELETE FROM ${self()}
   WHERE partition_date = DATE('${helpers.getPartitionFirstDay()}')

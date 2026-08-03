@@ -1,3 +1,6 @@
+// Shared helpers ≈ dbt macros.
+// Keep these pure/date utilities; avoid embedding full business SQL here.
+
 function formatDate(date) {
   const y = date.getFullYear();
   const m = String(date.getMonth() + 1).padStart(2, "0");

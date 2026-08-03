@@ -1,9 +1,11 @@
 config {
   type: "view",
+  name: "rpt_nba_helpers_demo",
   schema: "dataform",
-  name: "my_temporary_result"
+  tags: ["nba", "sandbox"]
 }
 
+-- includes/helpers.js 示範（遷 dbt → macros）
 SELECT
   player,
   birth_date,
@@ -12,4 +14,4 @@ SELECT
   '${helpers.thisWeekSunday()}' AS this_week_end,
   '${helpers.lastWeekMonday()}' AS last_week_start,
   '${helpers.lastWeekSunday()}' AS last_week_end
-FROM ${ref("nba_players_base")}
+FROM ${ref("stg_nba__players")}

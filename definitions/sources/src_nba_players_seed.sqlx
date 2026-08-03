@@ -1,0 +1,26 @@
+config {
+  type: "table",
+  name: "src_nba_players_seed",
+  schema: "dataform",
+  tags: ["nba", "source", "seed"]
+}
+
+-- Demo seed：模擬 raw/source 資料（非正式外部表）
+-- 遷 dbt 時對應 seeds/ 或 source 宣告後的 raw table
+SELECT * FROM UNNEST([
+  STRUCT("LeBron James" AS player, 23 AS age, DATE("1984-12-30") AS birth_date, 203 AS height_cm, 113 AS weight_kg, 2008 AS season),
+  STRUCT("Kobe Bryant", 30, DATE("1978-08-23"), 198, 96, 2008),
+  STRUCT("Kevin Durant", 20, DATE("1988-09-29"), 208, 109, 2008),
+  STRUCT("Dwyane Wade", 26, DATE("1982-01-17"), 193, 100, 2008),
+  STRUCT("Chris Paul", 23, DATE("1985-05-06"), 183, 79, 2008),
+  STRUCT("Carmelo Anthony", 24, DATE("1984-05-29"), 203, 109, 2008),
+  STRUCT("Tim Duncan", 31, DATE("1976-04-25"), 211, 113, 2008),
+  STRUCT("Dirk Nowitzki", 29, DATE("1978-06-19"), 213, 111, 2008),
+  STRUCT("Derrick Rose", 20, DATE("1988-10-04"), 190, 86, 2008),
+  STRUCT("Dwight Howard", 22, DATE("1985-12-08"), 211, 120, 2008),
+  STRUCT("Paul Pierce", 30, DATE("1977-10-13"), 201, 108, 2008),
+  STRUCT("Rajon Rondo", 22, DATE("1986-02-22"), 185, 79, 2008),
+  STRUCT("Yao Ming", 27, DATE("1980-09-12"), 229, 141, 2008),
+  STRUCT("Chris Bosh", 23, DATE("1984-03-24"), 206, 109, 2008),
+  STRUCT("Steve Nash", 34, DATE("1974-02-07"), 191, 82, 2008)
+])

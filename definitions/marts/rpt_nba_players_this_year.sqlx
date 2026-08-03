@@ -1,9 +1,9 @@
 config {
   type: "table",
+  name: "rpt_nba_players_this_year",
   schema: "dataform",
-  dependencies: [
-    "nba_players"
-  ]
+  tags: ["nba", "marts", "daily"],
+  dependencies: ["fct_nba_players"]
 }
 
 SELECT
@@ -13,6 +13,6 @@ SELECT
   height_cm,
   weight_kg,
   season
-FROM ${ref("nba_players")}
+FROM ${ref("fct_nba_players")}
 WHERE season = EXTRACT(YEAR FROM CURRENT_DATE())
 ORDER BY age DESC

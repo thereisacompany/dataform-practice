@@ -1,0 +1,18 @@
+config {
+  type: "view",
+  name: "stg_nba__players",
+  schema: "dataform",
+  tags: ["nba", "staging"]
+}
+
+-- Staging：輕量清理／型別對齊，盡量 1:1 對 source
+-- 遷 dbt → models/staging/stg_nba__players.sql
+SELECT
+  player,
+  age,
+  birth_date,
+  height_cm,
+  weight_kg,
+  season AS seed_season
+FROM ${ref("src_nba_players_seed")}
+WHERE player IS NOT NULL

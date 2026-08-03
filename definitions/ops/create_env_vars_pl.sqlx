@@ -1,9 +1,10 @@
 config {
   type: "operations",
   schema: "dataform",
-  tags: ["initialization_pl"]
+  tags: ["ops", "initialization_pl"]
 }
 
+-- BQ PROCEDURE：Dataform 專屬味重，遷 dbt 需改 run-operation / 外部排程
 CREATE OR REPLACE PROCEDURE `${dataform.projectConfig.defaultDatabase}.dataform.calculate_env_vars_pl`()
 BEGIN
   DECLARE current_date DATE;

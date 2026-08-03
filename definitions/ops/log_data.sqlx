@@ -1,9 +1,11 @@
 config {
   type: "table",
+  name: "log_data",
   schema: "dataform",
-  name: "log_data"
+  tags: ["ops", "logging"]
 }
 
+-- 空殼 log 表；實際寫入可用 helpers.logSQL() 放 post_operations
 SELECT
   CURRENT_DATE() AS execution_date,
   CURRENT_TIMESTAMP() AS execution_time,

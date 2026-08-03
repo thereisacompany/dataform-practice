@@ -1,0 +1,11 @@
+config {
+  type: "assertion",
+  name: "assert_fct_nba_players_valid",
+  schema: "dataform_assertions",
+  tags: ["nba", "assertions"]
+}
+
+-- 回傳列 = 失敗。遷 dbt → schema.yml tests 或 singular test
+SELECT *
+FROM ${ref("fct_nba_players")}
+WHERE age <= 0 OR height_cm <= 0 OR weight_kg <= 0
